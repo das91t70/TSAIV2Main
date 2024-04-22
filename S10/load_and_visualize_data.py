@@ -47,8 +47,10 @@ class Transforms:
 
     def __call__(self, img, *args, **kwargs):
         return self.transforms(image=np.array(img))
+
+
 # visualize dataloader in a batch
-def visualize_data_in_batch(self, data_loader, start, end):
+def visualize_data_in_batch(data_loader, start, end):
     classes = ('plane', 'car', 'bird', 'cat',
            'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
     dataiter = iter(data_loader)
@@ -57,7 +59,7 @@ def visualize_data_in_batch(self, data_loader, start, end):
 
 
 # shpw images
-def imshow(self, img, labels):
+def imshow(img, labels):
     img = img / 2 + 0.5     # unnormalize
     npimg = img.numpy()
     plt.imshow(np.transpose(npimg, (1, 2, 0)))
