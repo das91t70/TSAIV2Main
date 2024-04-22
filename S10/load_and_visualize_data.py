@@ -39,6 +39,7 @@ class CIFAR10DataOps:
   def load_dataset(self, dataloader_args):
     data_loader = torch.utils.data.DataLoader(self.dataset, **dataloader_args)
     return data_loader
+    
   # visualize dataloader in a batch
   def visualize_data_in_batch(self, data_loader, start, end):
     classes = ('plane', 'car', 'bird', 'cat',
