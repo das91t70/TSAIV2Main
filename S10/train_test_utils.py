@@ -79,7 +79,7 @@ class TrainTestUtils:
   def plot_graphs(self):
     t = [t_items.item() for t_items in self.train_losses]
     fig, axs = plt.subplots(2,2,figsize=(15,10))
-    axs[0, 0].plot(self.t)
+    axs[0, 0].plot(t)
     axs[0, 0].set_title("Training Loss")
     axs[1, 0].plot(self.train_acc)
     axs[1, 0].set_title("Training Accuracy")
