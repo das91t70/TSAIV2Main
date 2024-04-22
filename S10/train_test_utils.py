@@ -87,7 +87,7 @@ class TrainTestUtils:
     axs[1, 1].plot(self.test_acc)
     axs[1, 1].set_title("Test Accuracy")
   
-def find_max_lr_rangetest(self, test_type, model, train_loader, val_loader=None):
+def find_max_lr_rangetest(test_type, model, train_loader, val_loader=None):
   if (test_type == "fastai"):
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=1e-7, weight_decay=1e-1)
