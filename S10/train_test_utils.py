@@ -87,20 +87,20 @@ class TrainTestUtils:
     axs[1, 1].plot(self.test_acc)
     axs[1, 1].set_title("Test Accuracy")
   
-  def find_max_lr_rangetest(self, test_type, model):
-    if (test_type == "fastai"):
-      criterion = nn.CrossEntropyLoss()
-      optimizer = optim.Adam(model.parameters(), lr=1e-7, weight_decay=1e-1)
-      lr_finder = LRFinder(model, optimizer, criterion, device="cuda")
-      lr_finder.range_test(train_loader, end_lr=100, num_iter=100, step_mode="exp")
-      lr_finder.plot()
-      lr_finder.reset()
-    elif (test_type == "lsmith"):
-      # leslie smith
-      criterion = nn.CrossEntropyLoss()
-      optimizer = optim.Adam(model.parameters(), lr=0.1, weight_decay=1e-2)
-      lr_finder = LRFinder(model, optimizer, criterion, device="cuda")
-      lr_finder.range_test(trainloader, val_loader=val_loader, end_lr=1, num_iter=100, step_mode="linear")
-      lr_finder.plot(log_lr=False)
-      lr_finder.reset()
+def find_max_lr_rangetest(self, test_type, model, train_loader, val_loader=None):
+  if (test_type == "fastai"):
+    criterion = nn.CrossEntropyLoss()
+    optimizer = optim.Adam(model.parameters(), lr=1e-7, weight_decay=1e-1)
+    lr_finder = LRFinder(model, optimizer, criterion, device="cuda")
+    lr_finder.range_test(train_loader, end_lr=100, num_iter=100, step_mode="exp")
+    lr_finder.plot()
+    lr_finder.reset()
+  elif (test_type == "lsmith"):
+    # leslie smith
+    criterion = nn.CrossEntropyLoss()
+    optimizer = optim.Adam(model.parameters(), lr=0.1, weight_decay=1e-2)
+    lr_finder = LRFinder(model, optimizer, criterion, device="cuda")
+    lr_finder.range_test(train_loader, val_loader=val_loader, end_lr=1, num_iter=100, step_mode="linear")
+    lr_finder.plot(log_lr=False)
+    lr_finder.reset()
 
