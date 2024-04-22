@@ -40,23 +40,6 @@ class CIFAR10DataOps:
     data_loader = torch.utils.data.DataLoader(self.dataset, **dataloader_args)
     return data_loader
     
-  # visualize dataloader in a batch
-  def visualize_data_in_batch(self, data_loader, start, end):
-    classes = ('plane', 'car', 'bird', 'cat',
-           'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
-    dataiter = iter(data_loader)
-    images, labels = next(dataiter)
-    self.imshow(make_grid(images[start:end+1]), [classes[index] for index in labels.tolist()[start:end+1]])
-
-
-  # shpw images
-  def imshow(self, img, labels):
-    img = img / 2 + 0.5     # unnormalize
-    npimg = img.numpy()
-    plt.imshow(np.transpose(npimg, (1, 2, 0)))
-    plt.title(labels)
-    plt.show()
-
 # transforms class - used for albumentations
 class Transforms:
     def __init__(self, transforms: albumentations.Compose):
@@ -64,3 +47,20 @@ class Transforms:
 
     def __call__(self, img, *args, **kwargs):
         return self.transforms(image=np.array(img))
+# visualize dataloader in a batch
+def visualize_data_in_batch(self, data_loader, start, end):
+    classes = ('plane', 'car', 'bird', 'cat',
+           'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
+    dataiter = iter(data_loader)
+    images, labels = next(dataiter)
+    self.imshow(make_grid(images[start:end+1]), [classes[index] for index in labels.tolist()[start:end+1]])
+
+
+# shpw images
+def imshow(self, img, labels):
+    img = img / 2 + 0.5     # unnormalize
+    npimg = img.numpy()
+    plt.imshow(np.transpose(npimg, (1, 2, 0)))
+    plt.title(labels)
+    plt.show()
+
