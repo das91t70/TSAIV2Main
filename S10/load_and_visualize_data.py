@@ -55,7 +55,7 @@ def visualize_data_in_batch(data_loader, start, end):
            'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
     dataiter = iter(data_loader)
     images, labels = next(dataiter)
-    self.imshow(make_grid(images[start:end+1]), [classes[index] for index in labels.tolist()[start:end+1]])
+    imshow(make_grid(images[start:end+1]), [classes[index] for index in labels.tolist()[start:end+1]])
 
 
 # shpw images
