@@ -13,9 +13,9 @@ class CIFAR10DataOps:
   # register CIFAR10 dataset as either train or test data
   def __init__(self, train):
     if train:
-      self.dataset = datasets.CIFAR10('./data', train=train, download=True, transform=Tranforms(self.get_train_transforms()))
+      self.dataset = datasets.CIFAR10('./data', train=train, download=True, transform=Transforms(self.get_train_transforms()))
     else:
-      self.dataset = datasets.CIFAR10('./data', train=train, download=True, transform=Tranforms(self.get_test_transforms()))
+      self.dataset = datasets.CIFAR10('./data', train=train, download=True, transform=Transforms(self.get_test_transforms()))
 
   # get transformations used for training dataset
   def get_train_transforms(self):
