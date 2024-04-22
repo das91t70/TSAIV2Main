@@ -1,23 +1,35 @@
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+# define custom resnet architecture that david used in the resnet competition
+# https://myrtle.ai/learn/how-to-train-your-resnet-4-architecture/
+
 class DavidResNet(nn.Module):
     def __init__(self):
         super(DavidResNet, self).__init__()
-        # CONVOLUTION BLOCK 1
+
         self.prep_layer = nn.Sequential(
             nn.Conv2d(in_channels=3, out_channels=64, kernel_size=(3, 3), padding=1, bias=False),
             nn.BatchNorm2d(64),
             nn.ReLU()
         )
+        # LAYER 1
         self.conv1 = self.conv_block(64, 128)
         self.resnet_b1 = self.resnet_block(128)
+        # LAYER 2
         self.layer2 = nn.Sequential(
             nn.Conv2d(in_channels=128, out_channels=256, kernel_size=(3, 3), padding=1, bias=False),
             nn.MaxPool2d(2,2),
             nn.BatchNorm2d(256),
             nn.ReLU()
         )
+        # LAYER 3
         self.conv2 = self.conv_block(256, 512)
         self.resnet_b2 = self.resnet_block(512)
+        # MAX POOL with kernel size = 4
         self.pool1 = nn.MaxPool2d(4,4)
+        
         self.fc = nn.Linear(in_features=512, out_features=10)
 
     def conv_block(self, n_in, n_out):
