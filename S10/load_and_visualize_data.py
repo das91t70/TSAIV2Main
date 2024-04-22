@@ -4,6 +4,8 @@ import torch.nn.functional as F
 import torch.optim as optim
 from torchvision import datasets, transforms
 from torchvision.utils import make_grid
+import albumentations
+import albumentations.pytorch
 import numpy as np
 import matplotlib.pyplot as plt
 class CIFAR10DataOps:
