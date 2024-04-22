@@ -1,5 +1,9 @@
-import matplotlib.pyplot as plt
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import torch.optim as optim
 from torch_lr_finder import LRFinder
+import matplotlib.pyplot as plt
 
 class TrainTestUtils:
 
