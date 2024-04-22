@@ -13,7 +13,7 @@ class TrainTestUtils:
     self.train_acc = []
     self.test_acc = []
 
-  def train(self, model, device, train_loader, optimizer, epoch):
+  def train(self, model, device, train_loader, optimizer, scheduler, epoch):
     model.train()
     pbar = tqdm(train_loader)
     correct = 0
@@ -44,8 +44,13 @@ class TrainTestUtils:
       correct += pred.eq(target.view_as(pred)).sum().item()
       processed += len(data)
 
+      scheduler.step()
       pbar.set_description(desc= f'Loss={loss.item()} Batch_id={batch_idx} Accuracy={100*correct/processed:0.2f}')
       self.train_acc.append(100*correct/processed)
+      
+      last_learning_rate = scheduler.get_last_lr()
+      print("Last computed learning rate: ", last_learning_rate)
+      print("Learning Rate: ", optimizer.param_groups[0]['lr'])
 
   def test(self, model, device, test_loader):
       model.eval()
