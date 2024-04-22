@@ -46,7 +46,7 @@ class Transforms:
         self.transforms = transforms
 
     def __call__(self, img, *args, **kwargs):
-        return self.transforms(image=np.array(img))
+        return self.transforms(image=np.array(img))["image"]
 
 
 # visualize dataloader in a batch
