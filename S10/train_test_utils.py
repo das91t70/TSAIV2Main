@@ -46,12 +46,12 @@ class TrainTestUtils:
       processed += len(data)
 
       scheduler.step()
-      pbar.set_description(desc= f'Loss={loss.item()} Batch_id={batch_idx} Accuracy={100*correct/processed:0.2f}')
-      self.train_acc.append(100*correct/processed)
+    pbar.set_description(desc= f'Loss={loss.item()} Batch_id={batch_idx} Accuracy={100*correct/processed:0.2f}')
+    self.train_acc.append(100*correct/processed)
       
-      last_learning_rate = scheduler.get_last_lr()
-      print("Last computed learning rate: ", last_learning_rate)
-      print("Learning Rate: ", optimizer.param_groups[0]['lr'])
+    last_learning_rate = scheduler.get_last_lr()
+    print("Last computed learning rate: ", last_learning_rate)
+    print("Learning Rate: ", optimizer.param_groups[0]['lr'])
 
   def test(self, model, device, test_loader):
       model.eval()
@@ -94,7 +94,7 @@ def find_max_lr_rangetest(test_type, model, train_loader, val_loader=None):
     optimizer = optim.Adam(model.parameters(), lr=1e-7, weight_decay=1e-1)
     lr_finder = LRFinder(model, optimizer, criterion, device="cuda")
     lr_finder.range_test(train_loader, end_lr=100, num_iter=100, step_mode="exp")
-    lr_finder.plot()
+    _, max_lr = lr_finder.plot()
     lr_finder.reset()
   elif (test_type == "lsmith"):
     # leslie smith
@@ -102,6 +102,7 @@ def find_max_lr_rangetest(test_type, model, train_loader, val_loader=None):
     optimizer = optim.Adam(model.parameters(), lr=0.1, weight_decay=1e-2)
     lr_finder = LRFinder(model, optimizer, criterion, device="cuda")
     lr_finder.range_test(train_loader, val_loader=val_loader, end_lr=1, num_iter=100, step_mode="linear")
-    lr_finder.plot(log_lr=False)
+    _, max_lr = lr_finder.plot(log_lr=False)
     lr_finder.reset()
+  return max_lr
 
